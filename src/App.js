@@ -38,7 +38,7 @@ function App() {
       </nav>
       
       <main className="main-content">
-        <h2>DEDASAC SHEVECI</h2>
+        <h2>SHEN DEDASAC SHEVECI</h2>
         
         <div className="balance-cards">
           <div className="balance-card current-balance">
