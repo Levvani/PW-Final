@@ -1,9 +1,9 @@
-// import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 
 
-//   test('should not recognize text', async ({page}) => {
-//     await page.goto("https://pw-final-opal.vercel.app/");
-//     await page. waitForTimeout(2000);
-//     expect(await page).toHaveURL("rgdngiedubkndb");
-//   });
+  test('should not recognize text', async ({page}) => {
+    await page.goto("https://pw-final-opal.vercel.app/");
+    await page. waitForTimeout(2000);
+    await expect(page).toHaveURL("rgdngiedubkndb");
+  });
