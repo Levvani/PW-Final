@@ -29,7 +29,7 @@ function App() {
       <nav className="sidebar">
         <h1>finance</h1>
         <ul>
-          <li className="active">RATATA</li>
+          <li className="active">Overview</li>
           <li>Transactions</li>
           <li>Budgets</li>
           <li>Pots</li>
@@ -38,7 +38,7 @@ function App() {
       </nav>
       
       <main className="main-content">
-        <h2>Oveerview</h2>
+        <h2>Overview</h2>
         
         <div className="balance-cards">
           <div className="balance-card current-balance">
@@ -46,7 +46,7 @@ function App() {
             <h2>${currentBalance.toFixed(2)}</h2>
           </div>
           <div className="balance-card">
-            <h3>Outcome</h3>
+            <h3>Income</h3>
             <h2>${income.toFixed(2)}</h2>
           </div>
           <div className="balance-card">
