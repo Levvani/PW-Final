@@ -42,7 +42,7 @@ function App() {
         
         <div className="balance-cards">
           <div className="balance-card current-balance">
-            <h3>Current Balance</h3>
+            <h3>Future Balance</h3>
             <h2>${currentBalance.toFixed(2)}</h2>
           </div>
           <div className="balance-card">
