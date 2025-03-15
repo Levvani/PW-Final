@@ -46,7 +46,7 @@ function App() {
             <h2>${currentBalance.toFixed(2)}</h2>
           </div>
           <div className="balance-card">
-            <h3>Income</h3>
+            <h3>Outcome</h3>
             <h2>${income.toFixed(2)}</h2>
           </div>
           <div className="balance-card">
