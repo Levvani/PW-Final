@@ -36,3 +36,184 @@
     transform: rotate(360deg);
   }
 }
+
+.finance-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fafafa;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #1c1c1c;
+  padding: 2rem;
+  color: white;
+}
+
+.sidebar h1 {
+  font-size: 1.5rem;
+  margin-bottom: 3rem;
+  font-weight: 500;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.sidebar li.active {
+  background-color: #2a2a2a;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 3rem;
+}
+
+.main-content h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  font-weight: 500;
+}
+
+.balance-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.balance-card {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.balance-card.current-balance {
+  background-color: #1c1c1c;
+  color: white;
+}
+
+.balance-card h3 {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.balance-card.current-balance h3 {
+  color: #999;
+}
+
+.balance-card h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.section-header button {
+  color: #666;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.pots-section, .transactions-section {
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.total-saved {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pot-icon {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  background-color: #e8f5f3;
+  color: #2a9d8f;
+  border-radius: 50%;
+  line-height: 40px;
+  margin-bottom: 1rem;
+}
+
+.pots-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.pot-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.transaction-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-info span:first-child {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+}
+
+.transaction-info span:last-child {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.amount.credit {
+  color: #2a9d8f;
+}
+
+.amount.debit {
+  color: #e63946;
+}
+
+/* Reset default styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
