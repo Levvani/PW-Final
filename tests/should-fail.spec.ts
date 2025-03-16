@@ -6,5 +6,5 @@ import { test, expect } from '@playwright/test';
     await page.goto("https://pw-final-opal.vercel.app/");
     await page. waitForTimeout(2000);
     await expect(page).toHaveURL("https://pw-final-opal.vercel.app/");
-    await expect(page.getByTestId("1")).toContainText("money");
+    await expect(page.getByTestId("1")).toContainText("finance");
   });

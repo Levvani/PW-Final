@@ -29,7 +29,7 @@ function App() {
       <nav className="sidebar">
         <h1 data-testid="1">finance</h1>
         <ul>
-          <li className="active">trusiki</li>
+          <li className="active">finance</li>
           <li>Transactions</li>
           <li>Budgets</li>
           <li>Pots</li>
@@ -38,7 +38,7 @@ function App() {
       </nav>
       
       <main className="main-content">
-        <h2>Underview</h2>
+        <h2>Overview</h2>
         
         <div className="balance-cards">
           <div className="balance-card current-balance">
