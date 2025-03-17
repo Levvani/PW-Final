@@ -6,7 +6,32 @@ on:
     branches: [main, master]
 
 jobs:
+  preview-deploy:
+    runs-on: ubuntu-latest
+    outputs:
+      preview-url: ${{ steps.deploy-preview.outputs.preview-url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: Install dependencies
+        run: npm install
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Deploy Preview to Vercel
+        id: deploy-preview
+        run: |
+          PREVIEW_URL=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes)
+          echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      - name: Wait for Preview Deployment
+        run: npx wait-on ${{ steps.deploy-preview.outputs.preview-url }}
+
   test:
+    needs: preview-deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,12 +42,24 @@ jobs:
         run: npm install
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Update test config to use preview URL
+        run: |
+          # Create a temporary test config that points to the preview URL
+          cat > playwright-preview.config.js << EOL
+          const { defineConfig } = require('@playwright/test');
+          module.exports = defineConfig({
+            use: {
+              baseURL: '${{ needs.preview-deploy.outputs.preview-url }}',
+            },
+            // Include your other config options here
+          });
+          EOL
+      - name: Run Playwright tests against preview
+        run: npx playwright test --config=playwright-preview.config.js
 
-  deploy:
-    needs: test  # This makes deploy wait for test to succeed
-    if: github.event_name == 'push'  # Only deploy on push events, not PRs
+  deploy-production:
+    needs: [preview-deploy, test]
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,5 +70,8 @@ jobs:
         run: npm install
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Deploy to Vercel
+      - name: Deploy to Production
         run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}

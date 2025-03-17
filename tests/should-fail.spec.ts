@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 
 
   test('should not recognize text', async ({page}) => {
-    await page.goto("https://pw-final-opal.vercel.app/");
+    await page.goto("/");
     await page. waitForTimeout(2000);
-    await expect(page).toHaveURL("https://pw-final-opal.vercel.app/");
-    await expect(page.getByTestId("1")).toContainText("random");
+    await expect(page).toHaveURL("/");
+    await expect(page.getByTestId("1")).toContainText("finance");
   });
