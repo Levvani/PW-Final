@@ -27,11 +27,7 @@ jobs:
           echo "Preview deployment URL: $PREVIEW_URL"
           echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
 
-      - name: Wait for Preview Deployment
-        timeout-minutes: 5
-        run: |
-          echo "Waiting for preview deployment at ${{ steps.deploy-preview.outputs.preview-url }}"
-          npx wait-on --timeout 300000 ${{ steps.deploy-preview.outputs.preview-url }}
+     
 
   test:
     needs: preview-deploy
