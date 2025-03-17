@@ -24,8 +24,13 @@ jobs:
       - name: Deploy Preview to Vercel
         id: deploy-preview
         run: |
-          DEPLOY_OUTPUT=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes --json)
-          PREVIEW_URL=$(echo $DEPLOY_OUTPUT | jq -r '.url')
+          # Deploy to Vercel and capture the output
+          DEPLOY_OUTPUT=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes --scope=${{ secrets.VERCEL_ORG_ID }})
+          echo "Deploy Output: $DEPLOY_OUTPUT"
+          # Extract the preview URL from the output
+          PREVIEW_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^ ]*' | head -n 1)
+          echo "Extracted Preview URL: $PREVIEW_URL"
+          # Set the preview URL as an output
           echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -78,7 +83,7 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Deploy to Production
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes --scope=${{ secrets.VERCEL_ORG_ID }}
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
