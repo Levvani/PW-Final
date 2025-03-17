@@ -38,6 +38,13 @@ export default defineConfig({
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
     },
+    {
+      use: {
+        extraHTTPHeaders: {
+          'Authorization': '0XNFmIFSO7oCtirtYS6QsSZZ1AnbKZXw'
+        }
+      }
+    }
 
     // {
     //   name: 'firefox',
