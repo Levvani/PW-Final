@@ -38,7 +38,7 @@ function App() {
       </nav>
       
       <main className="main-content">
-        <h2>IT WORKS!!!</h2>
+        <h2>Overview - Edited</h2>
         
         <div className="balance-cards">
           <div className="balance-card current-balance">
