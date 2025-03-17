@@ -22,13 +22,16 @@ jobs:
       - name: Deploy Preview to Vercel
         id: deploy-preview
         run: |
+          echo "Creating Vercel preview deployment..."
           PREVIEW_URL=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes)
+          echo "Preview deployment URL: $PREVIEW_URL"
           echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
-        env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
       - name: Wait for Preview Deployment
-        run: npx wait-on ${{ steps.deploy-preview.outputs.preview-url }}
+        timeout-minutes: 5
+        run: |
+          echo "Waiting for preview deployment at ${{ steps.deploy-preview.outputs.preview-url }}"
+          npx wait-on --timeout 300000 ${{ steps.deploy-preview.outputs.preview-url }}
 
   test:
     needs: preview-deploy
