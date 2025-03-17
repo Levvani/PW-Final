@@ -41,7 +41,7 @@ export default defineConfig({
     {
       use: {
         extraHTTPHeaders: {
-          'Authorization': '0XNFmIFSO7oCtirtYS6QsSZZ1AnbKZXw'
+          "x-vercel-protection-bypass": "0XNFmIFSO7oCtirtYS6QsSZZ1AnbKZXw"
         }
       }
     }
