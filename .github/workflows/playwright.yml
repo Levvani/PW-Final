@@ -19,28 +19,16 @@ jobs:
         run: npm install
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
-      - name: Install jq
-        run: sudo apt-get install -y jq
       - name: Deploy Preview to Vercel
         id: deploy-preview
         run: |
-          # Deploy to Vercel and capture the output
-          DEPLOY_OUTPUT=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes --scope=${{ secrets.VERCEL_ORG_ID }})
-          echo "Deploy Output: $DEPLOY_OUTPUT"
-          # Extract the preview URL from the output
-          PREVIEW_URL=$(echo "$DEPLOY_OUTPUT" | grep -o 'https://[^ ]*' | head -n 1)
-          echo "Extracted Preview URL: $PREVIEW_URL"
-          # Set the preview URL as an output
+          PREVIEW_URL=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes)
           echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-      - name: Debug Preview URL
-        run: echo "Preview URL: ${{ steps.deploy-preview.outputs.preview-url }}"
-      - name: Install wait-on
-        run: npm install wait-on
       - name: Wait for Preview Deployment
-        run: npx wait-on --timeout 300000 ${{ steps.deploy-preview.outputs.preview-url }}
+        run: npx wait-on ${{ steps.deploy-preview.outputs.preview-url }}
 
   test:
     needs: preview-deploy
@@ -83,7 +71,7 @@ jobs:
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
       - name: Deploy to Production
-        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes --scope=${{ secrets.VERCEL_ORG_ID }}
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
