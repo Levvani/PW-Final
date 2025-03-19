@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="finance-dashboard">
       <nav className="sidebar">
-        <h1 data-testid="1">finance</h1>
+        <h1 data-testid="1">binanace</h1>
         <ul>
           <li className="active">finance</li>
           <li>Transactions</li>
@@ -38,7 +38,7 @@ function App() {
       </nav>
       
       <main className="main-content">
-        <h2>Overview</h2>
+        <h2>underview</h2>
         
         <div className="balance-cards">
           <div className="balance-card current-balance">
