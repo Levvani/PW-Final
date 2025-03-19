@@ -26,6 +26,8 @@ jobs:
           PREVIEW_URL=$(vercel --token=${{ secrets.VERCEL_TOKEN }} --yes)
           echo "Preview deployment URL: $PREVIEW_URL"
           echo "preview-url=$PREVIEW_URL" >> $GITHUB_OUTPUT
+      - name: Wait for Preview Deployment
+        run: npx wait-on ${{ steps.deploy-preview.outputs.preview-url }}
 
      
 
