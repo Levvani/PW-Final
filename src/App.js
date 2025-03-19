@@ -27,7 +27,7 @@ function App() {
   return (
     <div className="finance-dashboard">
       <nav className="sidebar">
-        <h1 data-testid="1">Binance</h1>
+        <h1 data-testid="1">finance</h1>
         <ul>
           <li className="active">finance</li>
           <li>Transactions</li>
