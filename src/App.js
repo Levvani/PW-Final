@@ -1,45 +1,75 @@
-import { useState } from 'react';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [currentBalance] = useState(4836.00);
+  const [currentBalance] = useState(4836.0);
   const [income] = useState(3814.25);
-  const [expenses] = useState(1700.50);
-  
+  const [expenses] = useState(1700.5);
+
   const [pots] = useState({
     totalSaved: 850,
     categories: [
-      { name: 'Savings', amount: 159 },
-      { name: 'Gift', amount: 40 },
-      { name: 'Concert Ticket', amount: 110 },
-      { name: 'New Laptop', amount: 10 }
-    ]
+      { name: "Savings", amount: 159 },
+      { name: "Gift", amount: 40 },
+      { name: "Concert Ticket", amount: 110 },
+      { name: "New Laptop", amount: 10 },
+    ],
   });
 
   const [transactions] = useState([
-    { id: 1, name: 'Emma Richardson', amount: 75.50, type: 'credit', date: '19 Aug 2024' },
-    { id: 2, name: 'Savory Bites Bistro', amount: -55.50, type: 'debit', date: '19 Aug 2024' },
-    { id: 3, name: 'Daniel Carter', amount: -42.30, type: 'debit', date: '18 Aug 2024' },
-    { id: 4, name: 'Sun Park', amount: 120.00, type: 'credit', date: '17 Aug 2024' },
-    { id: 5, name: 'Urban Services Hub', amount: -65.00, type: 'debit', date: '17 Aug 2024' }
+    {
+      id: 1,
+      name: "Emma Richardson",
+      amount: 75.5,
+      type: "credit",
+      date: "19 Aug 2024",
+    },
+    {
+      id: 2,
+      name: "Savory Bites Bistro",
+      amount: -55.5,
+      type: "debit",
+      date: "19 Aug 2024",
+    },
+    {
+      id: 3,
+      name: "Daniel Carter",
+      amount: -42.3,
+      type: "debit",
+      date: "18 Aug 2024",
+    },
+    {
+      id: 4,
+      name: "Sun Park",
+      amount: 120.0,
+      type: "credit",
+      date: "17 Aug 2024",
+    },
+    {
+      id: 5,
+      name: "Urban Services Hub",
+      amount: -65.0,
+      type: "debit",
+      date: "17 Aug 2024",
+    },
   ]);
 
   return (
     <div className="finance-dashboard">
       <nav className="sidebar">
-        <h1 data-testid="1">binanace</h1>
+        <h1 data-testid="1">finance</h1>
         <ul>
           <li className="active">finance</li>
-          <li>Transactions</li>
+          <li>Transitions</li>
           <li>Budgets</li>
           <li>Pots</li>
           <li>Recurring Bills</li>
         </ul>
       </nav>
-      
+
       <main className="main-content">
         <h2>random</h2>
-        
+
         <div className="balance-cards">
           <div className="balance-card current-balance">
             <h3>Current Balance</h3>
@@ -68,7 +98,7 @@ function App() {
                 <p>Total Saved</p>
               </div>
               <div className="pots-list">
-                {pots.categories.map(pot => (
+                {pots.categories.map((pot) => (
                   <div className="pot-item" key={pot.name}>
                     <span>{pot.name}</span>
                     <span>${pot.amount}</span>
@@ -84,14 +114,15 @@ function App() {
               <button>View All</button>
             </div>
             <div className="transactions-list">
-              {transactions.map(transaction => (
+              {transactions.map((transaction) => (
                 <div className="transaction-item" key={transaction.id}>
                   <div className="transaction-info">
                     <span>{transaction.name}</span>
                     <span>{transaction.date}</span>
                   </div>
                   <span className={`amount ${transaction.type}`}>
-                    {transaction.type === 'credit' ? '+' : ''}{transaction.amount}
+                    {transaction.type === "credit" ? "+" : ""}
+                    {transaction.amount}
                   </span>
                 </div>
               ))}
