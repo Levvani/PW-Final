@@ -1,46 +1,47 @@
-# name: Daily Scheduled Tests
+name: Daily Scheduled Tests
 
-# on:
-#   schedule:
-#     # This runs every 2 minutes
-#     - cron: "*/2 * * * *"
-#   workflow_dispatch: # Allows manual triggering
+on:
+  schedule:
+    # This runs every 2 minutes
+    - cron: "*/2 * * * *"
+  workflow_dispatch: # Allows manual triggering
+  push:
+    branches: [main, forcron]
+jobs:
+  scheduled-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-# jobs:
-#   scheduled-tests:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-#       - name: Use Node.js
-#         uses: actions/setup-node@v4
-#         with:
-#           node-version: "20"
+      - name: Install dependencies
+        run: npm ci
 
-#       - name: Install dependencies
-#         run: npm ci
+      - name: Install Playwright browsers
+        run: npx playwright install
 
-#       - name: Install Playwright browsers
-#         run: npx playwright install
+      - name: Run scheduled test specs
+        run: npx playwright test tests/scheduled.spec.ts
+        env:
+          # Add any necessary environment variables
+          CI: true
 
-#       - name: Run scheduled test specs
-#         run: npx playwright test tests/scheduled.spec.ts
-#         env:
-#           # Add any necessary environment variables
-#           CI: true
+      - name: Send email notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.EMAIL_USER}}
+          password: ${{secrets.EMAIL_PASS}}
+          subject: Daily Scheduled Tests Results
+          body: |
+            Test run completed at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
-#       - name: Send email notification
-#         if: always()
-#         uses: dawidd6/action-send-mail@v3
-#         with:
-#           server_address: smtp.gmail.com
-#           server_port: 465
-#           username: ${{secrets.EMAIL_USER}}
-#           password: ${{secrets.EMAIL_PASS}}
-#           subject: Daily Scheduled Tests Results
-#           body: |
-#             Test run completed at ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-
-#             Status: ${{ job.status }}
-#           to: levanzhvania96@gmail.com
-#           from: GitHub Actions
+            Status: ${{ job.status }}
+          to: levanzhvania96@gmail.com
+          from: GitHub Actions
